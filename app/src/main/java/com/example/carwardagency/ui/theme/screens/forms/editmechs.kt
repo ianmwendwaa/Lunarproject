@@ -60,18 +60,18 @@ import com.example.carwardagency.navigation.ROUTE_MECHANICS
 @Composable
 fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsViewModel) {
 
-    val title by remember { mutableStateOf("Mechanics App") }
+    var title by remember { mutableStateOf("Mechanics App") }
 
 
-    val context=LocalContext.current
+    var context=LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     var authoredFirstName by remember { mutableStateOf(mechanicsViewModel.firstName) }
     var authoredLastName by remember { mutableStateOf(mechanicsViewModel.lastName) }
     var editedemail by remember { mutableStateOf(mechanicsViewModel.email) }
-    val autheredBio by remember { mutableStateOf(mechanicsViewModel.bio) }
-    var experience by remember { mutableStateOf(mechanicsViewModel.experience) }
-    var contact by remember { mutableStateOf(mechanicsViewModel.contact) }
+    var autheredBio by remember { mutableStateOf(mechanicsViewModel.bio) }
+    var editedexperience by remember { mutableStateOf(mechanicsViewModel.experience) }
+    var editedcontact by remember { mutableStateOf(mechanicsViewModel.contact) }
 
     // Create a scaffold with a top app bar
     Scaffold(
@@ -151,6 +151,8 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
 
                         val bioMaxLength = 600
                         val bioMinLength = 15
+                        val experienceMaxLength=600
+                        val experienceMinLength=60
                         val maxLength = 20
                         val minLength = 3
 
@@ -333,8 +335,8 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                         )
 
                         TextField(
-                            value = contact,
-                            onValueChange = { contact = it },
+                            value = editedcontact,
+                            onValueChange = { editedcontact = it },
                             placeholder = {
                                 Text(
                                     text = "Mechanics phone number",
@@ -354,8 +356,8 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                                 unfocusedIndicatorColor = Color.Transparent
                             ),
                             trailingIcon = {
-                                IconButton(onClick = { contact   = "" }) {
-                                    if (contact.length in minLength..maxLength) {
+                                IconButton(onClick = { editedcontact   = "" }) {
+                                    if (editedcontact.length in minLength..maxLength) {
                                         Icon(
                                             imageVector = Icons.Outlined.Check,
                                             tint = Color(0xFF006400),
@@ -389,8 +391,8 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                         )
 
                         TextField(
-                            value = experience,
-                            onValueChange = { experience = it },
+                            value = editedexperience,
+                            onValueChange = { editedexperience = it },
                             placeholder = {
                                 Text(
                                     text = "Enter Bio",
@@ -410,8 +412,8 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                                 unfocusedIndicatorColor = Color.Transparent
                             ),
                             trailingIcon = {
-                                IconButton(onClick = { experience = "" }) {
-                                    if (experience.length in bioMinLength..bioMaxLength) {
+                                IconButton(onClick = { editedexperience = "" }) {
+                                    if (editedexperience.length in experienceMinLength..experienceMaxLength) {
                                         Icon(
                                             imageVector = Icons.Outlined.Check,
                                             tint = Color(0xFF006400),
@@ -439,15 +441,15 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                             mechanicsViewModel.firstName = authoredFirstName
                             mechanicsViewModel.lastName = authoredLastName
                             mechanicsViewModel.email = editedemail
-                            mechanicsViewModel.experience = experience
+                            mechanicsViewModel.experience = editedexperience
                             mechanicsViewModel.bio = autheredBio
-                            mechanicsViewModel.contact = contact
+                            mechanicsViewModel.contact = editedcontact
 
 
                             val mechanicRepository = uploadviewmodel(navController,context)
-                            mechanicRepository.saveMechanic(authoredFirstName.trim(),authoredLastName.trim(),
-                                editedemail.trim(),experience.trim(),autheredBio.trim(), contact.trim())
-                            navController.navigate(ROUTE_MECHANICS)
+                            mechanicRepository.saveMechanics(authoredFirstName.trim(),authoredLastName.trim(),
+                                editedemail.trim(),editedexperience.trim(),autheredBio.trim(), editedcontact.trim())
+                            navController.navigate("mechanics")
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -461,7 +463,7 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                     ) {
                         Text(
                             text = "Save Mechanics",
-                            fontFamily = FontFamily.SansSerif,
+                            fontFamily = FontFamily.Serif,
                             fontWeight = FontWeight(300),
                             fontSize = 14.sp
                         )
@@ -471,10 +473,11 @@ fun Editmechs(navController: NavHostController, mechanicsViewModel: MechanicsVie
                             mechanicsViewModel.firstName = authoredFirstName
                             mechanicsViewModel.lastName = authoredLastName
                             mechanicsViewModel.email = editedemail
-                            mechanicsViewModel.experience = experience
+                            mechanicsViewModel.experience = editedexperience
                             mechanicsViewModel.bio = autheredBio
+                            mechanicsViewModel.contact = editedcontact
 
-                            navController.navigate(ROUTE_MECHANICS)
+                            navController.navigate("mechanics")
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -533,7 +536,7 @@ fun UpdateText() {
 
 @Preview(showBackground = true)
 @Composable
-fun EditCvScreenPreview() {
+fun EditMechanicScreenPreview() {
     val navController = rememberNavController()
     val viewModel = MechanicsViewModel(/* Initialize with sample data */)
     Editmechs(navController = navController, mechanicsViewModel = viewModel)

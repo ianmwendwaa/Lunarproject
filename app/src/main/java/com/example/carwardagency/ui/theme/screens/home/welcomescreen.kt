@@ -76,15 +76,15 @@ fun Welcomescreen(navController: NavHostController,
             )
             Spacer(modifier = Modifier.height(60.dp))
 
-            CButton(text = "Sign In With Email",
+            CButton(text = "Login In With Email",
                 onClick = {
-                    navController.navigate(ROUTE_LOGIN)
+                    navController.navigate("login")
                 }
             )
 
             DontHaveAnAccount(
                 onSignupTap = {
-                    navController.navigate(ROUTE_SIGNUP)
+                    navController.navigate("signup")
                 }
             )
 

@@ -113,8 +113,13 @@ fun MechanicsScreen(navController: NavController, mechanicsViewModel: MechanicsV
                     EmailSection(mechanicsViewModel)
                 }
                 item {
+                    ContactSection(mechanicsViewModel)
+                }
+                item {
                     EditButton(navController)
                 }
+
+
             }
         })
 }
@@ -201,7 +206,7 @@ fun NameSection(mechanicsViewModel: MechanicsViewModel) {
                         .fillMaxSize()
                 ) {
                     Text(
-                        text = "Hi, I am",
+                        text = "Hello, My names are: ",
                         color = Color.White,
                         fontSize = 32.sp,
                         letterSpacing = 0.sp,
@@ -364,55 +369,85 @@ fun EmailSection(mechanicsViewModel: MechanicsViewModel) {
                 fontSize = 16.sp,
                 letterSpacing = 0.sp,
                 textAlign = TextAlign.Left,
-                fontFamily =FontFamily.SansSerif,
+                fontFamily = FontFamily.SansSerif,
                 modifier = Modifier
             )
         }
 
         Spacer(modifier = Modifier.width(16.dp))
 
+    }
+}
+@Composable
+    fun ContactSection(mechanicsViewModel: MechanicsViewModel) {
+        Row(
+            modifier = Modifier
+                .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+        ) {
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.email_icon),
+                    contentDescription = "contacts Handle",
+                    modifier = Modifier
+                        .size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = mechanicsViewModel.contact,
+                    fontSize = 16.sp,
+                    letterSpacing = 0.sp,
+                    textAlign = TextAlign.Left,
+                    fontFamily = FontFamily.SansSerif,
+                    modifier = Modifier
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
         }
 
         Spacer(modifier = Modifier.width(16.dp))
 
 
 
-
-
-    }
-
+        }
 
 @Composable
 fun EditButton(navController: NavController) {
     Button(
         onClick = {
             navController.navigate(ROUTE_EDIT_MECHS)
-        },
-        shape = RoundedCornerShape(15.dp),
-        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onTertiaryContainer),
-        modifier = Modifier
-            .width(200.dp)
-            .height(100.dp)
-            .padding(top = 25.dp, bottom = 25.dp, start = 25.dp, end = 25.dp),
-        elevation = ButtonDefaults.buttonElevation(40.dp)
+                  },
+                shape = RoundedCornerShape(15.dp),
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onTertiaryContainer),
+                modifier = Modifier
+                    .width(200.dp)
+                    .height(100.dp)
+                    .padding(top = 25.dp, bottom = 25.dp, start = 25.dp, end = 25.dp),
+                elevation = ButtonDefaults.buttonElevation(40.dp)
     ) {
         Text(
             text = "Edit",
             fontSize = 18.sp,
             letterSpacing = 0.sp,
             textAlign = TextAlign.Center,
-            fontFamily =  FontFamily.SansSerif
+            fontFamily = FontFamily.SansSerif
 
-        )
-    }
-}
+                )
+            }
+        }
 
-@SuppressLint("RememberReturnType")
+
+
 @Composable
 @Preview
 fun MechanicsScreenPreview() {
     val navController = rememberNavController()
     val mechanicsViewModel = remember { MechanicsViewModel() }
 
-    MechanicsScreen(navController = navController, mechanicsViewModel = MechanicsViewModel())
+    MechanicsScreen(navController = navController, mechanicsViewModel = mechanicsViewModel)
 }
+

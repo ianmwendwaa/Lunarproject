@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,6 +48,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.carwardagency.R
 import com.example.carwardagency.data.AuthViewModel
 import com.example.carwardagency.navigation.ROUTE_MECHANICS
+import com.example.carwardagency.ui.theme.screens.login.Icon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -59,7 +61,7 @@ fun SignupScreen(navController: NavHostController){
     var passwordVisible by remember { mutableStateOf(false) }
     val context= LocalContext.current
     Surface(
-        color = Color.Black,
+        color = Color.White,
         modifier = Modifier.fillMaxSize()
     ) {
 
@@ -76,7 +78,7 @@ fun SignupScreen(navController: NavHostController){
                     modifier = Modifier
                         .padding(top = 54.dp)
                         .height(100.dp)
-                        .align(Alignment.Start)
+                        .align(Alignment.CenterHorizontally)
                         .offset(x = (-20).dp)
                 )
                 Text(text = "Sign up",
@@ -84,15 +86,15 @@ fun SignupScreen(navController: NavHostController){
                         fontSize = 24.sp,
                         fontFamily = FontFamily.Serif,
                         fontWeight = FontWeight(500),
-                        color = Color.White
+                        color = Color.Black
                     ),
-                    modifier= Modifier.align(Alignment.Start)
+                    modifier= Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(text = "sign up now to create your first professional cv",
+                Text(text = "Join now to get covered 24/7 on the road",
                     style = androidx.compose.ui.text.TextStyle(
                         fontSize = 20.sp,
                         fontFamily = FontFamily.Serif,
-                        color = Color(0xB2FFFFFF)
+                        color = Color.Black
                     ),
                     modifier= Modifier
                         .align(Alignment.Start)
@@ -116,7 +118,7 @@ fun SignupScreen(navController: NavHostController){
                             style = androidx.compose.ui.text.TextStyle(
                                 fontSize = 18.sp,
                                 fontFamily = FontFamily.Serif,
-                                color = Color(0xFFBEC2C2)
+                                color = Color.Gray
                             )
                         )
                     },
@@ -135,13 +137,19 @@ fun SignupScreen(navController: NavHostController){
                 TextField(
                     value = pass,
                     onValueChange = { pass = it },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = "mail"
+                        )
+                    },
                     placeholder = {
                         Text(
                             text = "Enter password",
                             style = androidx.compose.ui.text.TextStyle(
                                 fontSize = 18.sp,
                                 fontFamily = FontFamily.Serif,
-                                color = Color(0xFFBEC2C2)
+                                color = Color.Gray
                             )
                         )
                     },
@@ -174,13 +182,19 @@ fun SignupScreen(navController: NavHostController){
                 TextField(
                     value = confirmpass,
                     onValueChange = { confirmpass = it },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = "mail"
+                        )
+                    },
                     placeholder = {
                         Text(
                             text = "Confirm  password",
                             style = androidx.compose.ui.text.TextStyle(
                                 fontSize = 18.sp,
                                 fontFamily = FontFamily.Serif,
-                                color = Color(0xFFBEC2C2)
+                                color = Color.Gray
                             )
                         )
                     },
@@ -231,7 +245,7 @@ fun SignupScreen(navController: NavHostController){
                             fontSize= 22.sp,
                             fontFamily = FontFamily.Serif,
                             fontWeight = FontWeight(500),
-                            color = Color.White
+                            color = Color.Black
                         )
                     )
 
@@ -246,7 +260,7 @@ fun SignupScreen(navController: NavHostController){
                         style= androidx.compose.ui.text.TextStyle(
                             fontSize = 13.sp,
                             fontFamily = FontFamily.Serif,
-                            color = Color.White
+                            color = Color.Black
                         )
                     )
                     Text(text = "Sign in",
@@ -254,7 +268,7 @@ fun SignupScreen(navController: NavHostController){
                             fontSize = 13.sp,
                             fontFamily = FontFamily.Serif,
                             fontWeight = FontWeight(500),
-                            color = Color.White
+                            color = Color.Gray
                         )
                     )
 
@@ -267,9 +281,6 @@ fun SignupScreen(navController: NavHostController){
     }
 }
 
-fun Icon(image: String, contentDescription: String) {
-    TODO("Not yet implemented")
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, widthDp = 320, heightDp = 640)
